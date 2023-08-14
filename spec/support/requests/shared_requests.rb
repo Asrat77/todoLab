@@ -15,11 +15,7 @@ RSpec.shared_examples 'request_shared_spec' do |controller_name, field_count|
       obj = create(factory)
       get send("#{controller_name.singularize}_url", obj), headers: headers, as: :json
       expect(response).to be_successful
-      # result = JSON(response.body)
 
-      # expect(result['success']).to be_truthy
-      # expect(result['data'].count).to eq field_count
-      # expect(result['data']['id']).to eq obj.id
     end
   end
 
@@ -42,11 +38,6 @@ RSpec.shared_examples 'request_shared_spec' do |controller_name, field_count|
             as: :json
           )
         end.to change(clazz, :count).by(1)
-        # expect(response).to have_http_status(:created)
-        # expect(response.content_type).to eq('application/json; charset=utf-8')
-
-        # result = JSON(response.body)
-        # expect(result['success']).to be_truthy
       end
     end
 
@@ -65,12 +56,7 @@ RSpec.shared_examples 'request_shared_spec' do |controller_name, field_count|
           headers: headers,
           as: :json
         ) end.to change(clazz, :count).by(0)
-        # expect(response).to have_http_status(:unprocessable_entity)
-        # expect(response.content_type).to eq('application/json; charset=utf-8')
 
-        # result = JSON(response.body)
-        # expect(result['success']).to be_falsey
-        # expect(result['error']).not_to be_blank
       end
     end
   end
@@ -118,9 +104,7 @@ RSpec.shared_examples 'request_shared_spec' do |controller_name, field_count|
 
         expect(response).to have_http_status(:unprocessable_entity)
 
-        # result = JSON(response.body)
-        # expect(result['success']).to be_falsey
-        # expect(result['error']).not_to be_blank
+
       end
     end
   end

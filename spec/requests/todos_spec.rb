@@ -21,8 +21,7 @@ RSpec.describe "/todos", type: :request do
     status: Faker::Lorem.word,
   } end
 
-
-
+end
 
 
   # describe "GET /index" do
@@ -136,4 +135,4 @@ RSpec.describe "/todos", type: :request do
   #     expect(response).to redirect_to(todos_url)
   #   end
   # end
-end
+
