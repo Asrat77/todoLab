@@ -1,9 +1,12 @@
-
 require 'support/models/shared_examples.rb'
 require 'support/requests/shared_requests.rb'
+# require_relative 'custom_formatter.rb'
 
 
 RSpec.configure do |config|
+
+  # config.add_formatter(CustomFormatter)
+  config.formatter = RSpec::Core::Formatters::DocumentationFormatter
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
