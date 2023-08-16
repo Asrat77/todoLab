@@ -22,13 +22,7 @@ RSpec.shared_examples 'request_shared_spec' do |controller_name, field_count|
   describe 'POST /create' do
     context 'with valid params' do
       it 'creates a new object' do
-        params = params = {
-          todo: {
-            title: 'Test Title',
-            status: 'Test Status',
-            date: 'Test Date'
-          }
-        }
+        params = { payload: valid_attributes}
 
         expect do
           post(
@@ -43,11 +37,7 @@ RSpec.shared_examples 'request_shared_spec' do |controller_name, field_count|
 
     context 'with invalid params' do
       it 'renders a JSON response with errors for the new object' do
-        params = params = {
-          todo: {
-            title: nil,
-          }
-        }
+        params = {payload: invalid_attributes}
 
         expect do
         post(
@@ -65,12 +55,7 @@ RSpec.shared_examples 'request_shared_spec' do |controller_name, field_count|
     context 'with valid params' do
       it 'updates the requested object' do
         obj = create(factory)
-        params = params = {
-          todo: {
-            title: Faker::Lorem.word,
-
-          }
-        }
+        params = {payload: new_attributes}
 
         put(
           send("#{controller_name.singularize}_url", obj),
@@ -87,13 +72,9 @@ RSpec.shared_examples 'request_shared_spec' do |controller_name, field_count|
 
     context 'with invalid params' do
       it 'renders a JSON response with errors for the object' do
-        obj = create(factory)
-        params = params = {
-          todo: {
-            title: nil,
 
-          }
-        }
+        obj = create(factory)
+        params = {payload: invalid_attributes}
 
         put(
           send("#{controller_name.singularize}_url", obj),
@@ -101,10 +82,7 @@ RSpec.shared_examples 'request_shared_spec' do |controller_name, field_count|
           params: params,
           as: :json
         )
-
         expect(response).to have_http_status(:unprocessable_entity)
-
-
       end
     end
   end
