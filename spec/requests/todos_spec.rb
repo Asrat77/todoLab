@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "/todos", type: :request do
 
-  include_examples('request_shared_spec', 'todos', 30)
+  include_examples('request_shared_spec', 'todos', 4)
 
   let(:valid_attributes) do {
     title: Faker::Lorem.word,
