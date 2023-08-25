@@ -39,6 +39,7 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 5.3'
   gem 'rspec-rails', '~> 6.0', '>= 6.0.3'
   gem 'standard', '~> 1.31'
+  gem 'active_model_serializers'
 
 
 
