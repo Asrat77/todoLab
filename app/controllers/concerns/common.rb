@@ -8,8 +8,12 @@ module Common
 
 
   def index
-    @obj = @clazz.all
-    render json: {success: true, data: serialize(@obj)}
+    data = if block_given?
+      yield
+      else
+    @clazz.all
+    end
+    render json: {success: true, data: serialize(data)}
   end
 
   def show
@@ -17,22 +21,31 @@ module Common
   end
 
   def create
-    @obj = @clazz.new(model_params)
-
-    if @obj.save
-      render json: {success: true, data: serialize(@obj)}, status: :created
+    obj = if block_given?
+            yield
+          else
+            @clazz.new(model_params)
+          end
+    if obj.save
+      render json: {success: true, data: serialize(obj)}, status: :created
     else
-      render json: {success: false, error: @obj.errors.full_messages[0]}, status: :unprocessable_entity
+      render json: {success: false, error: obj.errors.full_messages[0]}, status: :unprocessable_entity
     end
     rescue => e
       render json: {success: false, error: e.message}
     end
 
+
   def update
-    if @obj.update(model_params)
-      render json: {success: true, data: serialize(@obj)}, status: :ok
+    if block_given?
+      yield
     else
-      render json: {error: @obj.errors, success: false}, status: :unprocessable_entity
+        obj = @obj
+    end
+    if obj.update(model_params)
+      render json: {success: true, data: serialize(obj)}, status: :ok
+    else
+      render json: {error: obj.errors, success: false}, status: :unprocessable_entity
     end
     rescue => e
       render json: {success: false, error: e.message}
@@ -41,8 +54,6 @@ module Common
   def destroy
     @obj.destroy
   end
-
-
 
   private
 
